@@ -15,7 +15,7 @@ import com.example.sample.repository.MongoAccessRepository;
 public class MapService {
 
     /**
-     * リポジトリ層のクラス
+     * リポジトリ層のクラス定義
      */
     private final MongoAccessRepository repository;
 

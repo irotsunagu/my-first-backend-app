@@ -23,7 +23,7 @@ import com.example.sample.service.MapService;
 public class MapController {
 
 	/**
-	 * サービス層のクラス
+	 * サービス層のクラス定義
 	 */
 	private final MapService service;
 
