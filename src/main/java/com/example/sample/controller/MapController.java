@@ -52,6 +52,17 @@ public class MapController {
 	 * @param id
 	 * @return 指定したidのデータ
 	 */
+	@GetMapping("/test")
+	public String getTest() {
+		return "okok";
+	}
+
+	/**
+	 * 指定したidのデータを返却する
+	 * 
+	 * @param id
+	 * @return 指定したidのデータ
+	 */
 	@GetMapping("/{id}")
 	public PinRecord getById(@PathVariable String id) {
 		return service.findById(id)
