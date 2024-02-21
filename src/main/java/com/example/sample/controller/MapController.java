@@ -36,6 +36,16 @@ public class MapController {
 		this.service = service;
 	}
 
+	// /**
+	// * 疎通確認用
+	// *
+	// * @return 指定したidのデータ
+	// */
+	// @GetMapping("/test")
+	// public String getTest() {
+	// return "APServer OK!";
+	// }
+
 	/**
 	 * 全格納データを返却する
 	 * 
@@ -44,17 +54,6 @@ public class MapController {
 	@GetMapping
 	public List<PinRecord> getAll() {
 		return service.findAll();
-	}
-
-	/**
-	 * 指定したidのデータを返却する
-	 * 
-	 * @param id
-	 * @return 指定したidのデータ
-	 */
-	@GetMapping("/test")
-	public String getTest() {
-		return "okok";
 	}
 
 	/**
