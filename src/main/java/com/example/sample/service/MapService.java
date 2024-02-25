@@ -2,11 +2,13 @@ package com.example.sample.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.example.sample.model.PinRecord;
+import com.example.sample.model.PinRecordModel;
 import com.example.sample.repository.MongoAccessRepository;
+import com.example.sample.repository.entity.PinRecordEntity;
 
 /**
  * バックエンドAPIのサンプルコントローラ
@@ -33,7 +35,7 @@ public class MapService {
      * 
      * @return
      */
-    public List<PinRecord> findAll() {
+    public List<PinRecordEntity> findAll() {
         return repository.findAll();
     }
 
@@ -43,7 +45,7 @@ public class MapService {
      * @param id
      * @return 指定したidのデータ
      */
-    public Optional<PinRecord> findById(String id) {
+    public Optional<PinRecordEntity> findById(String id) {
         return repository.findById(id);
     }
 
@@ -58,13 +60,32 @@ public class MapService {
     }
 
     /**
-     * 指定したデータを格納する
+     * 指定したデータを登録する
      * 
-     * @param pinRecord
+     * @param PinRecordModel
      * @return 格納したデータ
      */
-    public PinRecord save(PinRecord pinRecord) {
-        return repository.save(pinRecord);
+    public PinRecordEntity create(PinRecordModel pinRecord) {
+        // 新しいPinRecordインスタンスを作成して保存(UUIDをIDとして生成して登録)
+        PinRecordEntity newPinRecord = new PinRecordEntity(UUID.randomUUID()
+                .toString(), pinRecord.title(), pinRecord.description(),
+                pinRecord.latitude(),
+                pinRecord.longitude(), pinRecord.category(), pinRecord.imageUrl());
+        return repository.save(newPinRecord);
+    }
+
+    /**
+     * 指定したデータを更新する
+     * 
+     * @param PinRecordModel
+     * @return 格納したデータ
+     */
+    public PinRecordEntity update(String id, PinRecordModel pinRecord) {
+        // 新しいPinRecordインスタンスを作成して保存
+        PinRecordEntity newPinRecord = new PinRecordEntity(id, pinRecord.title(), pinRecord.description(),
+                pinRecord.latitude(),
+                pinRecord.longitude(), pinRecord.category(), pinRecord.imageUrl());
+        return repository.save(newPinRecord);
     }
 
     /**

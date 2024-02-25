@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.sample.model.PinRecord;
+import com.example.sample.model.PinRecordModel;
+import com.example.sample.repository.entity.PinRecordEntity;
 import com.example.sample.service.MapService;
 
 /**
@@ -52,7 +53,7 @@ public class MapController {
 	 * @return 全格納データ
 	 */
 	@GetMapping
-	public List<PinRecord> getAll() {
+	public List<PinRecordEntity> getAll() {
 		return service.findAll();
 	}
 
@@ -63,7 +64,7 @@ public class MapController {
 	 * @return 指定したidのデータ
 	 */
 	@GetMapping("/{id}")
-	public PinRecord getById(@PathVariable String id) {
+	public PinRecordEntity getById(@PathVariable String id) {
 		return service.findById(id)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity not found"));
 	}
@@ -76,8 +77,8 @@ public class MapController {
 	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public PinRecord create(@RequestBody @Validated PinRecord pinRecord) {
-		return service.save(pinRecord);
+	public PinRecordEntity create(@RequestBody @Validated PinRecordModel pinRecord) {
+		return service.create(pinRecord);
 	}
 
 	/**
@@ -88,7 +89,7 @@ public class MapController {
 	 * @return 上書きしたデータ
 	 */
 	@PostMapping("/{id}")
-	public PinRecord update(@PathVariable String id, @RequestBody @Validated PinRecord pinRecord) {
+	public PinRecordEntity update(@PathVariable String id, @RequestBody @Validated PinRecordModel pinRecord) {
 		// IDの存在チェック
 		boolean exists = service.existsById(id);
 		if (!exists) {
@@ -96,10 +97,7 @@ public class MapController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity not found with ID: " + id);
 		}
 
-		// 新しいPinRecordインスタンスを作成して保存
-		PinRecord newPinRecord = new PinRecord(id, pinRecord.title(), pinRecord.description(), pinRecord.latitude(),
-				pinRecord.longitude(), pinRecord.category(), pinRecord.imageUrl());
-		return service.save(newPinRecord);
+		return service.update(id, pinRecord);
 	}
 
 	/**
