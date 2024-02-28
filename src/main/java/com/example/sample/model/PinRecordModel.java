@@ -5,15 +5,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * ピンの情報を規定する型（record）
- * 必須チェックを行っているため、値は必ずすべて入っている必要がある
+ * コントローラクラスでのデータ受付用にピンの情報を規定する型
+ * 必須チェック(@NotNull)を行っているため、各項目の値はすべて含まれている必要がある
  */
 @Document
 public record PinRecordModel(
-        @NotNull(message = "title is required") String title,
-        @NotNull(message = "description is required") String description,
-        @NotNull(message = "latitude is required") double latitude,
-        @NotNull(message = "longitude is required") double longitude,
-        @NotNull(message = "category is required") String category,
-        @NotNull(message = "imageUrl is required") String imageUrl) {
+                // タイトル
+                @NotNull(message = "title is required") String title,
+                // 説明
+                @NotNull(message = "description is required") String description,
+                // 緯度
+                @NotNull(message = "latitude is required") double latitude,
+                // 経度
+                @NotNull(message = "longitude is required") double longitude,
+                // カテゴリ
+                @NotNull(message = "category is required") String category,
+                // イメージURL
+                @NotNull(message = "imageUrl is required") String imageUrl) {
 }

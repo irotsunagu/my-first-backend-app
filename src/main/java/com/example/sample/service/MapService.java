@@ -11,7 +11,7 @@ import com.example.sample.repository.MongoAccessRepository;
 import com.example.sample.repository.entity.PinRecordEntity;
 
 /**
- * バックエンドAPIのサンプルコントローラ
+ * バックエンドAPIのサンプルサービス
  */
 @Service
 public class MapService {
